@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="generator" content="pandoc">
-    <title>Software Carpentry: The Unix Shell</title>
+    <title>SUPA Software Carpentry: The Unix Shell</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
     <meta charset="UTF-8" />
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -19,8 +18,8 @@
   <body class="lesson">
     <div class="container card">
       <div class="banner">
-        <a href="http://software-carpentry.org" title="Software Carpentry">
-          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        <a href="http://www.supa.ac.uk" title="SUPA">
+          <img alt="SUPA logo" src="img/supa-logo-small.png"/>
         </a>
       </div>
       <article>
@@ -70,12 +69,28 @@ $ <span class="kw">nano</span> draft.txt</code></pre></div>
 <p>No matter what editor you use, you will need to know where it searches for and saves files. If you start it from the shell, it will (probably) use your current working directory as its default location. If you use your computer’s start menu, it may want to save files in your desktop or documents directory instead. You can change this by navigating to another directory the first time you “Save As…”</p>
 </div>
 </aside>
-<p>Let’s type in a few lines of text, then use Control-O to write our data to disk:</p>
+<p>Let’s type in a few lines of text. Once we’re happy with out text, we can press Ctrl-O (press the Ctrl key and, while holding it down, press the O key) to write our data to disk.</p>
 <div class="figure">
 <img src="fig/nano-screenshot.png" alt="Nano in action" />
 <p class="caption">Nano in action</p>
 </div>
-<p>Once our file is saved, we can use Control-X to quit the editor and return to the shell. (Unix documentation often uses the shorthand <code>^A</code> to mean “control-A”.) <code>nano</code> doesn’t leave any output on the screen after it exits, but <code>ls</code> now shows that we have created a file called <code>draft.txt</code>:</p>
+<p>Once our file is saved, we can use Ctrl-X to quit the editor and return to the shell.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="ctrl-control-key"><span class="glyphicon glyphicon-pushpin"></span>Ctrl, “Control”, key</h2>
+</div>
+<div class="panel-body">
+<p>The Ctrl key is called the “Control” key. There are various ways in which using the Ctrl key may be described. For example, you may see an instruction to press the Ctrl key and, while holding it down, press the X key, described as any of:</p>
+<ul>
+<li>Ctrl-X</li>
+<li>Ctrl+X</li>
+<li>Control-X</li>
+<li>Control+X</li>
+<li><code>^X</code></li>
+</ul>
+</div>
+</aside>
+<p><code>nano</code> doesn’t leave any output on the screen after it exits, but <code>ls</code> now shows that we have created a file called <code>draft.txt</code>:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span></code></pre></div>
 <pre class="output"><code>draft.txt</code></pre>
 <p>Let’s tidy up by running <code>rm draft.txt</code>:</p>
@@ -236,10 +251,10 @@ $ cp intro.txt methods.txt survey.txt</code></pre>
       </div>
       </article>
       <div class="footer">
-        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
-        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/shell-novice">Source</a>
-        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+        <a class="label swc-blue-bg" href="http://www.supa.ac.uk">SUPA</a>
+        <a class="label swc-blue-bg" href="https://github.com/supa-uk/swc-shell-novice">Source</a>
+        <a class="label swc-blue-bg" href="mailto:webmaster@supa.ac.uk">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">Licence</a>
       </div>
     </div>
     <!-- Javascript placed at the end of the document so the pages load faster -->

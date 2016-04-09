@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="generator" content="pandoc">
-    <title>Software Carpentry: The Unix Shell</title>
+    <title>SUPA Software Carpentry: The Unix Shell</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
     <meta charset="UTF-8" />
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -19,8 +18,8 @@
   <body class="lesson">
     <div class="container card">
       <div class="banner">
-        <a href="http://software-carpentry.org" title="Software Carpentry">
-          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        <a href="http://www.supa.ac.uk" title="SUPA">
+          <img alt="SUPA logo" src="img/supa-logo-small.png"/>
         </a>
       </div>
       <article>
@@ -48,7 +47,7 @@ $ <span class="kw">nano</span> middle.sh</code></pre></div>
 <p>The command <code>nano middle.sh</code> opens the file <code>middle.sh</code> within the text editor “nano” (which runs within the shell). If the file does not exist, it will be created. We can use the text editor to directly edit the file. We’ll simply insert the following line:</p>
 <pre><code>head -n 15 octane.pdb | tail -n 5</code></pre>
 <p>This is a variation on the pipe we constructed earlier: it selects lines 11-15 of the file <code>octane.pdb</code>. Remember, we are <em>not</em> running it as a command just yet: we are putting the commands in a file.</p>
-<p>Then we save the file (using CTRL-O), and exit the text editor (using CTRL-X). Check that the directory <code>molecules</code> now contains a file called <code>middle.sh</code>.</p>
+<p>Then we save the file (using Ctrl-O), and exit the text editor (using Ctrl-X). Check that the directory <code>molecules</code> now contains a file called <code>middle.sh</code>.</p>
 <p>Once we have saved the file, we can ask the shell to execute the commands it contains. Our shell is called <code>bash</code>, so we run the following command:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bash</span> middle.sh</code></pre></div>
 <pre class="output"><code>ATOM      9  H           1      -4.502   0.681   0.785  1.00  0.00
@@ -96,6 +95,14 @@ ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00</code></pre>
 <p>We still need to edit <code>middle.sh</code> each time we want to adjust the range of lines, though. Let’s fix that by using the special variables <code>$2</code> and <code>$3</code>:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">nano</span> middle.sh</code></pre></div>
 <pre class="output"><code>head -n &quot;$2&quot; &quot;$1&quot; | tail -n &quot;$3&quot;</code></pre>
+<p>We can now run:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bash</span> middle.sh pentane.pdb 15 5</code></pre></div>
+<pre class="output"><code>ATOM      9  H           1       1.324   0.350  -1.332  1.00  0.00
+ATOM     10  H           1       1.271   1.378   0.122  1.00  0.00
+ATOM     11  H           1      -0.074  -0.384   1.288  1.00  0.00
+ATOM     12  H           1      -0.048  -1.362  -0.205  1.00  0.00
+ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00</code></pre>
+<p>By changing the arguments to our command we can change our script’s behaviour:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">bash</span> middle.sh pentane.pdb 20 5</code></pre></div>
 <pre class="output"><code>ATOM     14  H           1      -1.259   1.420   0.112  1.00  0.00
 ATOM     15  H           1      -2.608  -0.407   1.130  1.00  0.00
@@ -248,10 +255,10 @@ echo $@.dat</code></pre>
       </div>
       </article>
       <div class="footer">
-        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
-        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/shell-novice">Source</a>
-        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+        <a class="label swc-blue-bg" href="http://www.supa.ac.uk">SUPA</a>
+        <a class="label swc-blue-bg" href="https://github.com/supa-uk/swc-shell-novice">Source</a>
+        <a class="label swc-blue-bg" href="mailto:webmaster@supa.ac.uk">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">Licence</a>
       </div>
     </div>
     <!-- Javascript placed at the end of the document so the pages load faster -->
