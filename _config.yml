@@ -34,7 +34,8 @@ example_site: "https://swcarpentry.github.com/lesson-example"
 workshop_repo: "https://github.com/swcarpentry/workshop-template"
 workshop_site: "https://swcarpentry.github.io/workshop-template"
 training_site: "https://swcarpentry.github.io/instructor-training"
-supa_site: "https://github.com/supa-uk/swc-shell-novice"
+supa_site: "http://www.supa.ac.uk"
+supa_github: "https://github.com/supa-uk/swc-shell-novice"
 
 # Surveys.
 pre_survey: "https://www.surveymonkey.com/r/swc_pre_workshop_v1?workshop_id="
