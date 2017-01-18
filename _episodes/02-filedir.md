@@ -558,6 +558,10 @@ which means "the current working directory".
 It may seem redundant to have a name for it,
 but we'll see some uses for it soon.
 
+Note that in most command line tools, multiple parameters can be combined 
+with a single `-` and no spaces between the parameters: `ls -F -a` is 
+equivalent to `ls -Fa`.
+
 > ## Other Hidden Files
 >
 > In addition to the hidden directories `..` and `.`, you may also see a file
@@ -616,7 +620,7 @@ $ cd Desktop/data-shell/data
 ~~~
 {: .bash}
 
-Check that we've moved to the right place by running `pwd` and `ls -F`.  
+Check that we've moved to the right place by running `pwd` and `ls -F`  
 
 If we want to move up one level from the data directory, we could use `cd ..`.  But
 there is another way to move to any directory, regardless of your
