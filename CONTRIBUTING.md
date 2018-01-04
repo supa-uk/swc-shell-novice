@@ -69,7 +69,7 @@ and to meet some of our community members.
 There are many ways to contribute,
 from writing new exercises and improving existing ones
 to updating or filling in the documentation
-and and submitting [bug reports][issues]
+and submitting [bug reports][issues]
 about things that don't work, aren't clear, or are missing.
 If you are looking for ideas,
 please see [the list of issues for this repository][issues],
@@ -140,7 +140,6 @@ You can also [reach us by email][contact].
 [dc-lessons]: http://datacarpentry.org/lessons/
 [dc-site]: http://datacarpentry.org/
 [discuss-list]: http://lists.software-carpentry.org/listinfo/discuss
-[example-site]: https://swcarpentry.github.io/lesson-example/
 [github]: http://github.com
 [github-flow]: https://guides.github.com/introduction/flow/
 [github-join]: https://github.com/join
