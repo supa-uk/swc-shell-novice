@@ -17,15 +17,6 @@ $ cd
 
 That last step will make sure you start with your home folder as your working directory.
 
-If you are on a Windows machine, it would be useful to download an installer
-which will add a bash shell, and a couple of other useful utilities:
-[SWC Windows installer](https://github.com/swcarpentry/windows-installer/releases/tag/v0.3).
-
-Another possibility is to connect to a remote machine with
-[Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/).
-
-In the lesson, you will find out how to access the data in this folder.  
-
 > ## Where to type commands: How to open a new shell
 > The `shell` is a program that enables us to send commands to the computer and recive output. It is also referred to as the `terminal` or `command line`.
 >
@@ -41,37 +32,37 @@ In the lesson, you will find out how to access the data in this folder.
 >  which can be found via the applications menu or the search bar.  
 > If your machine is set up to use something other than bash, you can run it by opening a terminal and typing `bash`.
 >
-> ### Mac OS
+> ### MacOS
 > For a Mac computer, the default Unix Shell is Bash,
-> and it is available via the Terminal Utilities program within your Applications folder.
+> and it is available via the `Terminal` application.
 >
 > To open Terminal, try one or both of the following:
-> * Go to your Applications. Within Applications, open the Utilities folder. Locate Terminal in the Utilities folder and open it.
+> * Go to your ‘Applications’ folder. Within ‘Applications’, open the ‘Utilities’ folder. Locate `Terminal` in that folder and open it.
 > * Use the Mac ‘Spotlight’ computer search function. Search for: Terminal and press [Enter] - this will open Terminal.
 >
-> #### Reference 
-> [How to Use Terminal on a Mac](http://www.macworld.co.uk/feature/mac-software/how-use-terminal-on-mac-3608274/)
->
 > ### Windows
-> Computers with Windows operating systems do not automatically have a Unix Shell program installed.
-> In this lesson, we encourage you to use an emulator included in Git for Windows, 
-> which gives you access to both Bash shell commands and Git. 
-> If you are attending a SWC session, it is likely you have already received instructions on how to install Git for Windows.
+> Windows machines do not automatically have a Unix Shell program installed.
 >
-> Once installed, you can open a terminal by running the program Git Bash from the Windows start menu.
+> There are two options here:
+> * Use ‘Windows Subsystem for Linux’, which installs the user-facing
+>   parts of a Linux distribution, including a shell; or
+> * Use a terminal program to connect to a remote Unix machine via ‘SSH’.
 >
-> Other solutions are available for running Bash commands on Windows systems. 
-> There is now a Bash shell command-line tool available for Windows 10. 
-> Additionally, you can run Bash commands on a remote UNIX computer or server from your Windows machine. 
-> This can be done through a Secure Shell (SSH) client. 
-> One such client available for free for Windows computers is PuTTY. 
-> See the reference below for information on installing and using PuTTY, 
-> using the Windows 10 command-line tool, or installing and using a UNIX/Linux emulator.
+> _Windows Subsystem for Linux_: this installs a bash shell, and the
+> other tools which you'd expect to find in a Linux distribution, but
+> running natively on Windows.  To install this, see [Microsoft's
+> guidance](https://docs.microsoft.com/en-gb/windows/wsl/about) (or a
+> few other sources of advice:
+> [1](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10),
+> [2](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/),
+> [3](https://www.howtogeek.com/265900/everything-you-can-do-with-windows-10s-new-bash-shell/)).
 >
-> #### Reference
-> * [Git for Windows](https://git-for-windows.github.io/)
-> * [How to Install Bash shell command-line tool on Windows 10](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10)
-> * [Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
-> * [Using the Windows 10 Bash Shell](https://www.howtogeek.com/265900/everything-you-can-do-with-windows-10s-new-bash-shell/)
-> * [Using a UNIX/Linux emulator (Cygwin) or Secure Shell (SSH) client (Putty)](http://faculty.smu.edu/reynolds/unixtut/windows.html)
+> _Using a terminal program for SSH_: There are a couple of options
+> here, but probably the most straightforward is to use
+> [MobaXTerm](https://mobaxterm.mobatek.net).
+> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/) is a
+> very well-known and stable alternative, though it has less
+> functionality.  A third possibility is
+> [Cygwin](http://www.cygwin.com): some people swear by Cygwin, but in
+> our experience it can be a little unpredictable.
 {: .callout}
