@@ -6,15 +6,9 @@ root: .
 
 You need to download some files to follow this lesson:
 
-<<<<<<< HEAD
-1. Download [shell-novice-data.zip]({{ page.root }}/data/shell-novice-data.zip) and move the file to your Desktop.
-2. Unzip/extract the file (ask your instructor if you need help with this step). You should end up with a new folder called data-shell on your Desktop.
-3. Open a terminal and type:
-=======
 1. Download [data-shell.zip]({{ page.root }}/data/data-shell.zip) and move the file to your Desktop.
 2. Unzip/extract the file (ask your instructor if you need help with this step). You should end up with a new folder called **data-shell** on your Desktop.
 3. Open a terminal and type `cd`, then press the Enter key. That last step will make sure you start with your home folder as your working directory.
->>>>>>> 1d5edf0e14ef1f442f564ef8d0a6d910476cbcbc
 
 ~~~
 $ cd
@@ -45,41 +39,10 @@ That last step will make sure you start with your home folder as your working di
 > and it is available via the `Terminal` application.
 >
 > To open Terminal, try one or both of the following:
-<<<<<<< HEAD
-> * Go to your ‘Applications’ folder. Within ‘Applications’, open the ‘Utilities’ folder. Locate `Terminal` in that folder and open it.
-> * Use the Mac ‘Spotlight’ computer search function. Search for: Terminal and press [Enter] - this will open Terminal.
-=======
 > * Go to your Applications. Within Applications, open the Utilities folder. Locate Terminal in the Utilities folder and open it.
 > * Use the Mac ‘Spotlight’ computer search function. Search for: `Terminal` and press <kbd>Return</kbd>.
->>>>>>> 1d5edf0e14ef1f442f564ef8d0a6d910476cbcbc
 >
 > ### Windows
-<<<<<<< HEAD
-> Windows machines do not automatically have a Unix Shell program installed.
->
-> There are two options here:
-> * Use ‘Windows Subsystem for Linux’, which installs the user-facing
->   parts of a Linux distribution, including a shell; or
-> * Use a terminal program to connect to a remote Unix machine via ‘SSH’.
->
-> _Windows Subsystem for Linux_: this installs a bash shell, and the
-> other tools which you'd expect to find in a Linux distribution, but
-> running natively on Windows.  To install this, see [Microsoft's
-> guidance](https://docs.microsoft.com/en-gb/windows/wsl/about) (or a
-> few other sources of advice:
-> [1](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10),
-> [2](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/),
-> [3](https://www.howtogeek.com/265900/everything-you-can-do-with-windows-10s-new-bash-shell/)).
->
-> _Using a terminal program for SSH_: There are a couple of options
-> here, but probably the most straightforward is to use
-> [MobaXTerm](https://mobaxterm.mobatek.net).
-> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/) is a
-> very well-known and stable alternative, though it has less
-> functionality.  A third possibility is
-> [Cygwin](http://www.cygwin.com): some people swear by Cygwin, but in
-> our experience it can be a little unpredictable.
-=======
 > Computers with Windows operating systems do not automatically have a Unix Shell program installed.
 > In this lesson, we encourage you to use an emulator included in Git for Windows, 
 > which gives you access to both Bash shell commands and Git. 
@@ -101,5 +64,4 @@ That last step will make sure you start with your home folder as your working di
 > * [Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
 > * [Using the Windows 10 Bash Shell](https://www.howtogeek.com/265900/everything-you-can-do-with-windows-10s-new-bash-shell/)
 > * [Using a Unix/Linux emulator (Cygwin) or Secure Shell (SSH) client (Putty)](http://faculty.smu.edu/reynolds/unixtut/windows.html)
->>>>>>> 1d5edf0e14ef1f442f564ef8d0a6d910476cbcbc
 {: .callout}
