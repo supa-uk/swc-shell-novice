@@ -84,10 +84,10 @@ as long as learners using Windows do not run into roadblocks such as:
 ## Preparing to Teach
 
 *   Use the `data` directory for in-workshop exercises and live coding examples.
-     You can clone the shell-novice directory or use the `Download ZIP`
-     button on the right to get the entire [repository](https://github.com/swcarpentry/shell-novice). We also now provide
-     a zip file of the `data` directory that can be downloaded on its own
-     from the repository by right-click + save or see the ["setup"]({{ page.root }}/setup/) page on the lesson website for more details.  
+    You can clone the shell-novice directory or use the *Download ZIP*
+    button on the right to get the entire [Git repository](https://github.com/swcarpentry/shell-novice). We also now provide
+    a zip file of the `data` directory
+    at the [Setup page]({{ page.root }}{% link setup.md %}).
 
 *   Website: various practices have been used.
     *   Option 1: Can give links to learners before the lesson so they can follow along,
@@ -109,7 +109,7 @@ as long as learners using Windows do not run into roadblocks such as:
     Have a learner show the solution?
     Have groups each do a different exercise and present their solutions?
 
-*   `reference.md` can be printed out and given to students as a reference, your choice.
+*   The [Reference page]({{ page.root }}{% link reference.md %}) can be printed out and given to students as a reference, your choice.
 
 *   Other preparation:
     Feel free to add your own examples or side comments,
@@ -130,18 +130,15 @@ as long as learners using Windows do not run into roadblocks such as:
 *   Resources for "splitting" your shell so that recent commands
     remain in view: <https://github.com/rgaiacs/swc-shell-split-window>.
 
-*   Running a text editor from the command line can be
-    the biggest stumbling block during the entire lesson:
-    many will try to run the same editor as the instructor
-    (which may leave them trapped in the awful nether hell that is Vim),
-    or will not know how to navigate to the right directory
-    to save their file,
-    or will run a word processor rather than a plain text editor.
-    The quickest way past these problems is to have more knowledgeable learners
-    help those who need it.
+*   Learners can sometimes get trapped within command-line text editors such as
+    Vim, Emacs, or Nano.
+    Closing the terminal emulator and opening a new one can be frustrating
+    as learners will have to navigate to the correct folder again.
+    Our recommendation to mitigate this problem is that instructors should use
+    the same text editor as the learners during workshops (in most cases Nano).
 
 *   Introducing and navigating the filesystem in the shell (covered in
-    [Navigating Files and Directories]({{ page.root }}/02-filedir/) section) can be confusing. You may have both terminal and GUI file explorer open side by side so learners can see the content and file structure while they're using terminal to navigate the system.
+    [Navigating Files and Directories]({{ page.root }}{% link _episodes/02-filedir.md %}) section) can be confusing. You may have both terminal and GUI file explorer open side by side so learners can see the content and file structure while they're using terminal to navigate the system.
 
 *   Tab completion sounds like a small thing: it isn't.
     Re-running old commands using `!123` or `!wc`
@@ -171,8 +168,8 @@ as long as learners using Windows do not run into roadblocks such as:
 *   If everything is going well, you can drive home the point that file
     extensions are essentially there to help computers (and human
     readers) understand file content and are not a requirement of files
-    (covered briefly in [Navigating Files and Directories]({{ page.root }}/02-filedir/)).
-    This can be done in the [Pipes and Filters]({{ page.root }}/04-pipefilter/) section by showing that you
+    (covered briefly in [Navigating Files and Directories]({{ page.root }}{% link _episodes/02-filedir.md %})).
+    This can be done in the [Pipes and Filters]({{ page.root }}{% link _episodes/04-pipefilter.md %}) section by showing that you
     can redirect standard output to a file without the .txt extension
     (e.g., lengths), and that the resulting file is still a perfectly usable text file.
     Make the point that if double-clicked in the GUI, the computer will

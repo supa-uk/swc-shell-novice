@@ -1,7 +1,7 @@
 ---
 title: "Pipes and Filters"
-teaching: 15
-exercises: 0
+teaching: 25
+exercises: 10
 questions:
 - "How can I combine existing commands to do new things?"
 objectives:
@@ -12,13 +12,13 @@ objectives:
 - "Explain Unix's 'small pieces, loosely joined' philosophy."
 keypoints:
 - "`cat` displays the contents of its inputs."
-- "`head` displays the first few lines of its input."
-- "`tail` displays the last few lines of its input."
+- "`head` displays the first 10 lines of its input."
+- "`tail` displays the last 10 lines of its input."
 - "`sort` sorts its inputs."
 - "`wc` counts lines, words, and characters in its inputs."
-- "`*` matches zero or more characters in a filename, so `*.txt` matches all files ending in `.txt`."
-- "`?` matches any single character in a filename, so `?.txt` matches `a.txt` but not `any.txt`."
-- "`command > file` redirects a command's output to a file."
+- "`command > file` redirects a command's output to a file (overwriting any existing content)."
+- "`command >> file` appends a command's output to a file."
+- "`<` operator redirects input to a command"
 - "`first | second` is a pipeline: the output of the first command is used as the input to the second."
 - "The best way to use the shell is to use pipes to combine simple single-purpose programs (filters)."
 ---
@@ -34,7 +34,7 @@ a simple text format that specifies the type and position of each atom in the mo
 ~~~
 $ ls molecules
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
 cubane.pdb    ethane.pdb    methane.pdb
@@ -44,7 +44,8 @@ octane.pdb    pentane.pdb   propane.pdb
 
 Let's go into that directory with `cd` and run the command `wc *.pdb`.
 `wc` is the "word count" command:
-it counts the number of lines, words, and characters in files.
+it counts the number of lines, words, and characters in files (from left to right, in that order).
+
 The `*` in `*.pdb` matches zero or more characters,
 so the shell turns `*.pdb` into a list of all `.pdb` files in the current directory:
 
@@ -52,121 +53,20 @@ so the shell turns `*.pdb` into a list of all `.pdb` files in the current direct
 $ cd molecules
 $ wc *.pdb
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
-  20  156 1158 cubane.pdb
-  12   84  622 ethane.pdb
-   9   57  422 methane.pdb
-  30  246 1828 octane.pdb
-  21  165 1226 pentane.pdb
-  15  111  825 propane.pdb
- 107  819 6081 total
+  20  156  1158  cubane.pdb
+  12  84   622   ethane.pdb
+   9  57   422   methane.pdb
+  30  246  1828  octane.pdb
+  21  165  1226  pentane.pdb
+  15  111  825   propane.pdb
+ 107  819  6081  total
 ~~~
 {: .output}
 
-> ## Wildcards
->
-> `*` is a **wildcard**. It matches zero or more
-> characters, so `*.pdb` matches `ethane.pdb`, `propane.pdb`, and every
-> file that ends with '.pdb'. On the other hand, `p*.pdb` only matches
-> `pentane.pdb` and `propane.pdb`, because the 'p' at the front only
-> matches filenames that begin with the letter 'p'.
->
-> `?` is also a wildcard, but it only matches a single character. This
-> means that `p?.pdb` would match `pi.pdb` or `p5.pdb` (if we had these two
-> files in the `molecules` directory), but not `propane.pdb`.
-> We can use any number of wildcards at a time: for example, `p*.p?*`
-> matches anything that starts with a 'p' and ends with '.', 'p', and at
-> least one more character (since the `?` has to match one character, and
-> the final `*` can match any number of characters). Thus, `p*.p?*` would
-> match `preferred.practice`, and even `p.pi` (since the first `*` can
-> match no characters at all), but not `quality.practice` (doesn't start
-> with 'p') or `preferred.p` (there isn't at least one character after the
-> '.p').
->
-> When the shell sees a wildcard, it expands the wildcard to create a
-> list of matching filenames *before* running the command that was
-> asked for. As an exception, if a wildcard expression does not match
-> any file, Bash will pass the expression as an argument to the command
-> as it is. For example typing `ls *.pdf` in the `molecules` directory
-> (which contains only files with names ending with `.pdb`) results in
-> an error message that there is no file called `*.pdf`.
-> However, generally commands like `wc` and `ls` see the lists of
-> file names matching these expressions, but not the wildcards
-> themselves. It is the shell, not the other programs, that deals with
-> expanding wildcards, and this is another example of orthogonal design.
-{: .callout}
 
-> ## Using Wildcards
->
-> When run in the `molecules` directory, which `ls` command(s) will
-> produce this output?
->
-> `ethane.pdb   methane.pdb`
->
-> 1. `ls *t*ane.pdb`
-> 2. `ls *t?ne.*`
-> 3. `ls *t??ne.pdb`
-> 4. `ls ethane.*`
->
-> > ## Solution
->>  The solution is `3.`
->>
->> `1.` shows all files that contain any number and combination of characters, followed by the letter `t`, another single character, and end with `ane.pdb`. This includes `octane.pdb` and `pentane.pdb`. 
->>
->> `2.` shows all files containing any number and combination of characters, `t`, another single character, `ne.` followed by any number and combination of characters. This will give us `octane.pdb` and `pentane.pdb` but doesn't match anything which ends in `thane.pdb`.
->>
->> `3.` fixes the problems of option 2 by matching two characters between `t` and `ne`. This is the solution.
->>
->> `4.` only shows files starting with `ethane.`.
-> {: .solution}
-{: .challenge}
-
-> ## More on Wildcards
->
-> Sam has a directory containing calibration data, datasets, and descriptions of
-> the datasets:
->
-> ~~~
-> 2015-10-23-calibration.txt
-> 2015-10-23-dataset1.txt
-> 2015-10-23-dataset2.txt
-> 2015-10-23-dataset_overview.txt
-> 2015-10-26-calibration.txt
-> 2015-10-26-dataset1.txt
-> 2015-10-26-dataset2.txt
-> 2015-10-26-dataset_overview.txt
-> 2015-11-23-calibration.txt
-> 2015-11-23-dataset1.txt
-> 2015-11-23-dataset2.txt
-> 2015-11-23-dataset_overview.txt
-> ~~~
-> {: .bash}
->
-> Before heading off to another field trip, she wants to back up her data and
-> send some datasets to her colleague Bob. Sam uses the following commands
-> to get the job done:
->
-> ~~~
-> $ cp *dataset* /backup/datasets
-> $ cp ____calibration____ /backup/calibration
-> $ cp 2015-____-____ ~/send_to_bob/all_november_files/
-> $ cp ____ ~/send_to_bob/all_datasets_created_on_a_23rd/
-> ~~~
-> {: .bash}
->
-> Help Sam by filling in the blanks.
->
-> > ## Solution
-> > ```
-> > $ cp *calibration.txt /backup/calibration
-> > $ cp 2015-11-* ~/send_to_bob/all_november_files/
-> > $ cp *-23-dataset* ~send_to_bob/all_datasets_created_on_a_23rd/
-> > ```
-> > {: .bash}
-> {: .solution}
-{: .challenge}
 
 If we run `wc -l` instead of just `wc`,
 the output shows only the number of lines per file:
@@ -174,7 +74,7 @@ the output shows only the number of lines per file:
 ~~~
 $ wc -l *.pdb
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
   20  cubane.pdb
@@ -190,7 +90,7 @@ $ wc -l *.pdb
 We can also use `-w` to get only the number of words,
 or `-c` to get only the number of characters.
 
-Which of these files is shortest?
+Which of these files contains the fewest lines?
 It's an easy question to answer when there are only six files,
 but what if there were 6000?
 Our first step toward a solution is to run the command:
@@ -198,7 +98,7 @@ Our first step toward a solution is to run the command:
 ~~~
 $ wc -l *.pdb > lengths.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 The greater than symbol, `>`, tells the shell to **redirect** the command's output
 to a file instead of printing it to the screen. (This is why there is no screen output:
@@ -212,56 +112,12 @@ some caution.
 ~~~
 $ ls lengths.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
 lengths.txt
 ~~~
 {: .output}
-
-> ## What Does `>>` Mean?
->
-> What is the difference between:
->
-> ~~~
-> $ echo hello > testfile01.txt
-> ~~~
-> {: .bash}
->
-> and:
->
-> ~~~
-> $ echo hello >> testfile02.txt
-> ~~~
-> {: .bash}
->
-> Hint: Try executing each command twice in a row and then examining the output files.
-{: .challenge}
-
-> ## Appending Data
->
-> Consider the file `data-shell/data/animals.txt`.
-> After these commands, select the answer that
-> corresponds to the file `animalsUpd.txt`:
->
-> ~~~
-> $ head -3 animals.txt > animalsUpd.txt
-> $ tail -2 animals.txt >> animalsUpd.txt
-> ~~~
-> {: .bash}
->
-> 1. The first three lines of `animals.txt`
-> 2. The last two lines of `animals.txt`
-> 3. The first three lines and the last two lines of `animals.txt`
-> 4. The second and third lines of `animals.txt`
->
-> > ## Solution
-> > Option 3 is correct. 
-> > For option 1 to be correct we would only run the `head` command.
-> > For option 2 to be correct we would only run the `tail` command.
-> > For option 4 to be correct we would have to pipe the output of `head` into `tail -2` by doing `head -3 animals.txt | tail -2 >> animalsUpd.txt`
-> {: .solution}
-{: .challenge}
 
 We can now send the content of `lengths.txt` to the screen using `cat lengths.txt`.
 `cat` stands for "concatenate":
@@ -272,7 +128,7 @@ so `cat` just shows us what it contains:
 ~~~
 $ cat lengths.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
   20  cubane.pdb
@@ -290,7 +146,7 @@ $ cat lengths.txt
 > We'll continue to use `cat` in this lesson, for convenience and consistency,
 > but it has the disadvantage that it always dumps the whole file onto your screen.
 > More useful in practice is the command `less`,
-> which you use with `$ less lengths.txt`.
+> which you use with `less lengths.txt`.
 > This displays a screenful of the file, and then stops.
 > You can go forward one screenful by pressing the spacebar,
 > or back one by pressing `b`.  Press `q` to quit.
@@ -300,7 +156,7 @@ Now let's use the `sort` command to sort its contents.
 
 > ## What Does `sort -n` Do?
 >
-> If we run `sort` on this file:
+> If we run `sort` on a file containing the following lines:
 >
 > ~~~
 > 10
@@ -336,19 +192,19 @@ Now let's use the `sort` command to sort its contents.
 > Explain why `-n` has this effect.
 >
 > > ## Solution
-> > The `-n` flag specifies a numeric sort, rather than alphabetical.
+> > The `-n` flag specifies a numerical rather than an alphanumerical sort.
 > {: .solution}
 {: .challenge}
 
 We will also use the `-n` flag to specify that the sort is
-numerical instead of alphabetical.
+numerical instead of alphanumerical.
 This does *not* change the file;
 instead, it sends the sorted result to the screen:
 
 ~~~
 $ sort -n lengths.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
   9  methane.pdb
@@ -371,7 +227,7 @@ we can run another command called `head` to get the first few lines in `sorted-l
 $ sort -n lengths.txt > sorted-lengths.txt
 $ head -n 1 sorted-lengths.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
   9  methane.pdb
@@ -394,12 +250,81 @@ the output of `head` must be the file with the fewest lines.
 > ~~~
 > $ sort -n lengths.txt > lengths.txt
 > ~~~
-> {: .bash}
+> {: .language-bash}
 >
 > Doing something like this may give you
 > incorrect results and/or delete
 > the contents of `lengths.txt`.
 {: .callout}
+
+> ## What Does `>>` Mean?
+>
+> We have seen the use of `>`, but there is a similar operator `>>` which works slightly differently.
+> We'll learn about the differences between these two operators by printing some strings.
+> We can use the `echo` command to print strings e.g.
+>
+> ~~~
+> $ echo The echo command prints text
+> ~~~
+> {: .language-bash}
+> ~~~
+> The echo command prints text
+> ~~~
+> {: .output}
+>
+> Now test the commands below to reveal the difference between the two operators:
+>
+> ~~~
+> $ echo hello > testfile01.txt
+> ~~~
+> {: .language-bash}
+>
+> and:
+>
+> ~~~
+> $ echo hello >> testfile02.txt
+> ~~~
+> {: .language-bash}
+>
+> Hint: Try executing each command twice in a row and then examining the output files.
+>
+> > ## Solution
+> > In the first example with `>`, the string "hello" is written to `testfile01.txt`,
+> > but the file gets overwritten each time we run the command.
+> >
+> > We see from the second example that the `>>` operator also writes "hello" to a file
+> > (in this case`testfile02.txt`),
+> > but appends the string to the file if it already exists (i.e. when we run it for the second time).
+> {: .solution}
+{: .challenge}
+
+> ## Appending Data
+>
+> We have already met the `head` command, which prints lines from the start of a file.
+> `tail` is similar, but prints lines from the end of a file instead.
+>
+> Consider the file `data-shell/data/animals.txt`.
+> After these commands, select the answer that
+> corresponds to the file `animalsUpd.txt`:
+>
+> ~~~
+> $ head -n 3 animals.txt > animalsUpd.txt
+> $ tail -n 2 animals.txt >> animalsUpd.txt
+> ~~~
+> {: .language-bash}
+>
+> 1. The first three lines of `animals.txt`
+> 2. The last two lines of `animals.txt`
+> 3. The first three lines and the last two lines of `animals.txt`
+> 4. The second and third lines of `animals.txt`
+>
+> > ## Solution
+> > Option 3 is correct. 
+> > For option 1 to be correct we would only run the `head` command.
+> > For option 2 to be correct we would only run the `tail` command.
+> > For option 4 to be correct we would have to pipe the output of `head` into `tail -2` by doing `head -3 animals.txt | tail -2 > animalsUpd.txt`
+> {: .solution}
+{: .challenge}
 
 If you think this is confusing,
 you're in good company:
@@ -410,7 +335,7 @@ We can make it easier to understand by running `sort` and `head` together:
 ~~~
 $ sort -n lengths.txt | head -n 1
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
   9  methane.pdb
@@ -434,7 +359,7 @@ Thus we first use a pipe to send the output of `wc` to `sort`:
 ~~~
 $ wc -l *.pdb | sort -n
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
    9 methane.pdb
@@ -452,7 +377,7 @@ And now we send the output of this pipe, through another pipe, to `head`, so tha
 ~~~
 $ wc -l *.pdb | sort -n | head -n 1
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
    9  methane.pdb
@@ -566,14 +491,14 @@ so that you and other people can put those programs into pipes to multiply their
 > ~~~
 > $ wc -l notes.txt
 > ~~~
-> {: .bash}
+> {: .language-bash}
 >
 > and:
 >
 > ~~~
 > $ wc -l < notes.txt
 > ~~~
-> {: .bash}
+> {: .language-bash}
 >
 > > ## Solution
 > > `<` is used to redirect input to a command. 
@@ -595,38 +520,13 @@ so that you and other people can put those programs into pipes to multiply their
 > > a test
 > > Ctrl-D # This lets the shell know you have finished typing the input
 > > ```
-> > {: .bash}
+> > {: .language-bash}
 > >
 > > ```
 > > 3
 > > ```
 > > {: .output}
 > {: .solution}
-{: .challenge}
-
-> ## Pipe Reading Comprehension
->
-> A file called `animals.txt` (in the `data-shell/data` folder) contains the following data:
->
-> ~~~
-> 2012-11-05,deer
-> 2012-11-05,rabbit
-> 2012-11-05,raccoon
-> 2012-11-06,rabbit
-> 2012-11-06,deer
-> 2012-11-06,fox
-> 2012-11-07,rabbit
-> 2012-11-07,bear
-> ~~~
-> {: .source}
->
-> What text passes through each of the pipes and the final redirect in the pipeline below?
->
-> ~~~
-> $ cat animals.txt | head -n 5 | tail -n 3 | sort -r > final.txt
-> ~~~
-> {: .bash}
-> Hint: build the pipeline up one command at a time to test your understanding
 {: .challenge}
 
 > ## Why Does `uniq` Only Remove Adjacent Duplicates?
@@ -662,7 +562,46 @@ so that you and other people can put those programs into pipes to multiply their
 > > ```
 > > $ sort salmon.txt | uniq
 > > ```
-> > {: .bash}
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
+
+> ## Pipe Reading Comprehension
+>
+> A file called `animals.txt` (in the `data-shell/data` folder) contains the following data:
+>
+> ~~~
+> 2012-11-05,deer
+> 2012-11-05,rabbit
+> 2012-11-05,raccoon
+> 2012-11-06,rabbit
+> 2012-11-06,deer
+> 2012-11-06,fox
+> 2012-11-07,rabbit
+> 2012-11-07,bear
+> ~~~
+> {: .source}
+>
+> What text passes through each of the pipes and the final redirect in the pipeline below?
+>
+> ~~~
+> $ cat animals.txt | head -n 5 | tail -n 3 | sort -r > final.txt
+> ~~~
+> {: .language-bash}
+> Hint: build the pipeline up one command at a time to test your understanding
+> > ## Solution
+> > The `head` command extracts the first 5 lines from `animals.txt`.
+> > Then, the last 3 lines are extracted from the previous 5 by using the `tail` command.
+> > With the `sort -r` command those 3 lines are sorted in reverse order and finally,
+> > the output is redirected to a file `final.txt`.
+> > The content of this file can be checked by executing `cat final.txt`.
+> > The file should contain the following lines:
+> > ```
+> > 2012-11-06,rabbit
+> > 2012-11-06,deer
+> > 2012-11-05,raccoon
+> > ```
+> > {: .source}
 > {: .solution}
 {: .challenge}
 
@@ -673,9 +612,10 @@ so that you and other people can put those programs into pipes to multiply their
 > ~~~
 > $ cut -d , -f 2 animals.txt
 > ~~~
-> {: .bash}
->
-> produces the following output:
+> {: .language-bash}
+> 
+> uses the `-d` flag to separate each line by comma, and the `-f` flag
+> to print the second field in each line, to give the following output:
 >
 > ~~~
 > deer
@@ -697,13 +637,13 @@ so that you and other people can put those programs into pipes to multiply their
 > > ```
 > > $ cut -d , -f 2 animals.txt | sort | uniq
 > > ```
-> > {: .bash}
+> > {: .language-bash}
 > {: .solution}
 {: .challenge}
 
 > ## Which Pipe?
 >
-> The file `data-shell/data/animals.txt` contains 586 lines of data formatted as follows:
+> The file `animals.txt` contains 8 lines of data formatted as follows:
 >
 > ~~~
 > 2012-11-05,deer
@@ -742,7 +682,7 @@ As a quick sanity check, starting from her home directory, Nelle types:
 $ cd north-pacific-gyre/2012-07-03
 $ wc -l *.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 The output is 18 lines that look like this:
 
@@ -762,7 +702,7 @@ Now she types this:
 ~~~
 $ wc -l *.txt | sort -n | head -n 5
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
  240 NENE02018B.txt
@@ -784,7 +724,7 @@ she checks to see if any files have too much data:
 ~~~
 $ wc -l *.txt | sort -n | tail -n 5
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
  300 NENE02040B.txt
@@ -804,7 +744,7 @@ To find others like it, she does this:
 ~~~
 $ ls *Z.txt
 ~~~
-{: .bash}
+{: .language-bash}
 
 ~~~
 NENE01971Z.txt    NENE02040Z.txt
@@ -852,7 +792,7 @@ so this matches all the valid data files she has.
 > > 	$ ls *A.txt
 > > 	$ ls *B.txt
 > > 	```
-> >	{: .bash}
+> >	{: .language-bash}
 > > 2. The output from the new commands is separated because there are two commands.
 > > 3. When there are no files ending in `A.txt`, or there are no files ending in
 > > `B.txt`.
