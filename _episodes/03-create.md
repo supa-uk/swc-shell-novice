@@ -60,7 +60,7 @@ $ mkdir thesis
 {: .language-bash}
 
 As you might guess from its name,
-`mkdir` means "make directory".
+`mkdir` means 'make directory'.
 Since `thesis` is a relative path
 (i.e., does not have a leading slash, like `/what/ever/thesis`),
 the new directory is created in the current working directory:
@@ -130,45 +130,46 @@ $ nano draft.txt
 
 > ## Which Editor?
 >
-> When we say, "`nano` is a text editor," we really do mean "text": it can
+> When we say, '`nano` is a text editor'" we really do mean 'text': it can
 > only work with plain character data, not tables, images, or any other
-> human-friendly media. We use it in examples because it is one of the 
-> least complex text editors. However, because of this trait, it may 
+> human-friendly media. We use it in examples because it is one of the
+> least complex text editors. However, because of this trait, it may
 > not be powerful enough or flexible enough for the work you need to do
-> after this workshop. On Unix systems (such as Linux and Mac OS X),
+> after this workshop. On Unix systems (such as Linux and macOS),
 > many programmers use [Emacs](http://www.gnu.org/software/emacs/) or
-> [Vim](http://www.vim.org/) (both of which require more time to learn), 
+> [Vim](http://www.vim.org/) (both of which require more time to learn),
 > or a graphical editor such as
 > [Gedit](http://projects.gnome.org/gedit/). On Windows, you may wish to
 > use [Notepad++](http://notepad-plus-plus.org/).  Windows also has a built-in
 > editor called `notepad` that can be run from the command line in the same
-> way as `nano` for the purposes of this lesson.  
+> way as `nano` for the purposes of this lesson.
 >
 > No matter what editor you use, you will need to know where it searches
 > for and saves files. If you start it from the shell, it will (probably)
 > use your current working directory as its default location. If you use
 > your computer's start menu, it may want to save files in your desktop or
 > documents directory instead. You can change this by navigating to
-> another directory the first time you "Save As..."
+> another directory the first time you 'Save As...'
 {: .callout}
 
 Let's type in a few lines of text.
-Once we're happy with our text, we can press <kbd>Ctrl</kbd>+<kbd>O</kbd> (press the Ctrl or Control key and, while
-holding it down, press the O key) to write our data to disk
+Once we're happy with our text, we can press <kbd>Ctrl</kbd>+<kbd>O</kbd>
+(press the <kbd>Ctrl</kbd> or <kbd>Control</kbd> key and, while
+holding it down, press the <kbd>O</kbd> key) to write our data to disk
 (we'll be asked what file we want to save this to:
 press <kbd>Return</kbd> to accept the suggested default of `draft.txt`).
 
 <div style="width:80%; margin: auto;"><img alt="Nano in Action" src="../fig/nano-screenshot.png"></div>
 
-Once our file is saved, we can use `Ctrl-X` to quit the editor and
+Once our file is saved, we can use <kbd>Ctrl</kbd>+<kbd>X</kbd> to quit the editor and
 return to the shell.
 
 > ## Control, Ctrl, or ^ Key
 >
-> The Control key is also called the "Ctrl" key. There are various ways
+> The Control key is also called the 'Ctrl' key. There are various ways
 > in which using the Control key may be described. For example, you may
-> see an instruction to press the Control key and, while holding it down,
-> press the X key, described as any of:
+> see an instruction to press the <kbd>Control</kbd> key and, while holding it down,
+> press the <kbd>X</kbd> key, described as any of:
 >
 > * `Control-X`
 > * `Control+X`
@@ -216,7 +217,7 @@ draft.txt
 > > ## Solution
 > > 1.  The `touch` command generates a new file called `my_file.txt` in
 > >     your current directory.  You
-> >     can observe this newly generated file by typing `ls` at the 
+> >     can observe this newly generated file by typing `ls` at the
 > >     command line prompt.  `my_file.txt` can also be viewed in your
 > >     GUI file explorer.
 > >
@@ -235,8 +236,8 @@ draft.txt
 
 > ## What's In A Name?
 >
-> You may have noticed that all of Nelle's files are named "something dot
-> something", and in this part of the lesson, we always used the extension
+> You may have noticed that all of Nelle's files are named 'something dot
+> something', and in this part of the lesson, we always used the extension
 > `.txt`.  This is just a convention: we can call a file `mythesis` or
 > almost anything else we want. However, most people use two-part names
 > most of the time to help them (and their programs) tell different kinds
@@ -268,14 +269,14 @@ cd ~/Desktop/data-shell/
 In our `thesis` directory we have a file `draft.txt`
 which isn't a particularly informative name,
 so let's change the file's name using `mv`,
-which is short for "move":
+which is short for 'move':
 
 ~~~
 $ mv thesis/draft.txt thesis/quotes.txt
 ~~~
 {: .language-bash}
 
-The first argument tells `mv` what we're "moving",
+The first argument tells `mv` what we're 'moving',
 while the second is where it's to go.
 In this case,
 we're moving `thesis/draft.txt` to `thesis/quotes.txt`,
@@ -295,17 +296,17 @@ quotes.txt
 
 One has to be careful when specifying the target file name, since `mv` will
 silently overwrite any existing file with the same name, which could
-lead to data loss. An additional flag, `mv -i` (or `mv --interactive`),
+lead to data loss. An additional option, `mv -i` (or `mv --interactive`),
 can be used to make `mv` ask you for confirmation before overwriting.
 
 Note that `mv` also works on directories.
 
 Let's move `quotes.txt` into the current working directory.
 We use `mv` once again,
-but this time we'll just use the name of a directory as the second argument
+but this time we'll use just the name of a directory as the second argument
 to tell `mv` that we want to keep the filename,
 but put the file somewhere new.
-(This is why the command is called "move".)
+(This is why the command is called 'move'.)
 In this case,
 the directory name we use is the special directory name `.` that we mentioned earlier.
 
@@ -336,30 +337,31 @@ quotes.txt
 ~~~
 {: .output}
 
-> ## Moving to the Current Folder
+> ## Moving Files to a new folder
 >
 > After running the following commands,
-> Jamie realizes that she put the files `sucrose.dat` and `maltose.dat` into the wrong folder:
+> Jamie realizes that she put the files `sucrose.dat` and `maltose.dat` into the wrong folder. 
+> The files should have been placed in the `raw` folder.
 >
 > ~~~
 > $ ls -F
 >  analyzed/ raw/
 > $ ls -F analyzed
 > fructose.dat glucose.dat maltose.dat sucrose.dat
-> $ cd raw/
+> $ cd analyzed
 > ~~~
 > {: .language-bash}
 >
-> Fill in the blanks to move these files to the current folder
-> (i.e., the one she is currently in):
+> Fill in the blanks to move these files to the `raw/` folder
+> (i.e. the one she forgot to put them in) 
 >
 > ~~~
-> $ mv ___/sucrose.dat  ___/maltose.dat ___
+> $ mv sucrose.dat maltose.dat ____/____
 > ~~~
 > {: .language-bash}
 > > ## Solution
 > > ```
-> > $ mv ../analyzed/sucrose.dat ../analyzed/maltose.dat .
+> > $ mv sucrose.dat maltose.dat ../raw
 > > ```
 > > {: .language-bash}
 > > Recall that `..` refers to the parent directory (i.e. one above the current directory)
@@ -387,7 +389,7 @@ quotes.txt   thesis/quotations.txt
 {: .output}
 
 We can also copy a directory and all its contents by using the
-[recursive](https://en.wikipedia.org/wiki/Recursion) flag `-r`,
+[recursive](https://en.wikipedia.org/wiki/Recursion) option `-r`,
 e.g. to back up a directory:
 
 ```
@@ -473,7 +475,7 @@ quotations.txt
 > > We start in the `/Users/jamie/data` directory, and create a new folder called `recombine`.
 > > The second line moves (`mv`) the file `proteins.dat` to the new folder (`recombine`).
 > > The third line makes a copy of the file we just moved.  The tricky part here is where the file was
-> > copied to.  Recall that `..` means "go up a level", so the copied file is now in `/Users/jamie`.
+> > copied to.  Recall that `..` means 'go up a level', so the copied file is now in `/Users/jamie`.
 > > Notice that `..` is interpreted with respect to the current working
 > > directory, **not** with respect to the location of the file being copied.
 > > So, the only thing that will show using ls (in `/Users/jamie/data`) is the recombine folder.
@@ -527,12 +529,12 @@ ls: cannot access 'quotes.txt': No such file or directory
 >
 > > ## Solution
 > > ```
-> > $ rm: remove regular file 'thesis_backup/quotations.txt'?
+> > $ rm: remove regular file 'thesis_backup/quotations.txt'? y
 > > ```
 > > {: .language-bash}
-> > The `-i` flag will prompt before every removal.
+> > The `-i` option will prompt before (every) removal (use <kbd>Y</kbd> to confirm deletion or <kbd>N</kbd> to keep the file).
 > > The Unix shell doesn't have a trash bin, so all the files removed will disappear forever.
-> > By using the `-i` flag, we have the chance to check that we are deleting only the files that we want to remove.
+> > By using the `-i` option, we have the chance to check that we are deleting only the files that we want to remove.
 > {: .solution}
 {: .challenge}
 
@@ -552,40 +554,20 @@ rm: cannot remove `thesis': Is a directory
 
 This happens because `rm` by default only works on files, not directories.
 
-`rm` can remove a directory *and all its contents* if we use the 
-recursive flag `-r`, however ...
-
-> ## With Great Power Comes Great Responsibility
->
-> Removing the files in a directory recursively can be a very dangerous
-> operation. If we're concerned about what we might be deleting we can
-> add the "interactive" flag `-i` to `rm` which will ask us for confirmation
-> before each step
->
-> ~~~
-> $ rm -r -i thesis
-> rm: descend into directory 'thesis'? y
-> rm: remove regular empty file 'thesis/quotations.txt'? y
-> rm: remove directory 'thesis'? y
-> ~~~
-> {: .language-bash}
->
-> This removes any files in the directory, then the directory itself, asking
-> at each step for you to confirm the deletion.
-{: .callout}
-
-If you haven't already deleted the `thesis` directory using the interactive flag,
-you can delete the directory without any confirmation prompts using the following command:
+`rm` can remove a directory *and all its contents* if we use the
+recursive option `-r`, and it will do so *without any confirmation prompts*:
 
 ~~~
 $ rm -r thesis
 ~~~
 {: .language-bash}
 
+Given that there is no way to retrieve files deleted using the shell,
+`rm -r` *should be used with great caution* (you might consider adding the interactive option `rm -r -i`).
 
 ## Operations with multiple files and directories
 
-Oftentimes one needs to copy or move several files at once. This can be done by providing a list of individual filenames, or specifying a naming pattern using wildcards.  
+Oftentimes one needs to copy or move several files at once. This can be done by providing a list of individual filenames, or specifying a naming pattern using wildcards.
 
 > ## Copy with Multiple Filenames
 >
@@ -610,15 +592,15 @@ Oftentimes one needs to copy or move several files at once. This can be done by 
 > ~~~
 > {: .output}
 > ~~~
-> $ cp amino-acids.txt animals.txt morse.txt 
+> $ cp amino-acids.txt animals.txt morse.txt
 > ~~~
 > {: .language-bash}
 >
 > > ## Solution
-> > If given more than one file name followed by a directory name (i.e. the destination directory must 
+> > If given more than one file name followed by a directory name (i.e. the destination directory must
 > > be the last argument), `cp` copies the files to the named directory.
 > >
-> > If given three file names, `cp` throws an error because it is expecting a directory
+> > If given three file names, `cp` throws an error such as the one below, because it is expecting a directory
 > > name as the last argument.
 > >
 > > ```
@@ -639,7 +621,7 @@ Oftentimes one needs to copy or move several files at once. This can be done by 
 > `pentane.pdb` and `propane.pdb`, because the 'p' at the front only
 > matches filenames that begin with the letter 'p'.
 >
-> `?` is also a wildcard, but it only matches a single character.
+> `?` is also a wildcard, but it matches exactly one character.
 > So `?ethane.pdb` would match `methane.pdb` whereas
 > `*ethane.pdb` matches both `ethane.pdb`, and `methane.pdb`.
 >
@@ -675,7 +657,7 @@ Oftentimes one needs to copy or move several files at once. This can be done by 
 > > ## Solution
 >>  The solution is `3.`
 >>
->> `1.` shows all files whose names contain zero or more characters (`*`) followed by the letter `t`, then zero or more characters (`*`) followed by `ane.pdb`. This gives `ethane.pdb  methane.pdb  octane.pdb  pentane.pdb`. 
+>> `1.` shows all files whose names contain zero or more characters (`*`) followed by the letter `t`, then zero or more characters (`*`) followed by `ane.pdb`. This gives `ethane.pdb  methane.pdb  octane.pdb  pentane.pdb`.
 >>
 >> `2.` shows all files whose names start with zero or more characters (`*`) followed by the letter `t`, then a single character (`?`), then `ne.` followed by zero or more characters (`*`). This will give us `octane.pdb` and `pentane.pdb` but doesn't match anything which ends in `thane.pdb`.
 >>
@@ -691,18 +673,25 @@ Oftentimes one needs to copy or move several files at once. This can be done by 
 > the datasets:
 >
 > ~~~
-> 2015-10-23-calibration.txt
-> 2015-10-23-dataset1.txt
-> 2015-10-23-dataset2.txt
-> 2015-10-23-dataset_overview.txt
-> 2015-10-26-calibration.txt
-> 2015-10-26-dataset1.txt
-> 2015-10-26-dataset2.txt
-> 2015-10-26-dataset_overview.txt
-> 2015-11-23-calibration.txt
-> 2015-11-23-dataset1.txt
-> 2015-11-23-dataset2.txt
-> 2015-11-23-dataset_overview.txt
+> .
+> ├── 2015-10-23-calibration.txt
+> ├── 2015-10-23-dataset1.txt
+> ├── 2015-10-23-dataset2.txt
+> ├── 2015-10-23-dataset_overview.txt
+> ├── 2015-10-26-calibration.txt
+> ├── 2015-10-26-dataset1.txt
+> ├── 2015-10-26-dataset2.txt
+> ├── 2015-10-26-dataset_overview.txt
+> ├── 2015-11-23-calibration.txt
+> ├── 2015-11-23-dataset1.txt
+> ├── 2015-11-23-dataset2.txt
+> ├── 2015-11-23-dataset_overview.txt
+> ├── backup
+> │   ├── calibration
+> │   └── datasets
+> └── send_to_bob
+>     ├── all_datasets_created_on_a_23rd
+>     └── all_november_files
 > ~~~
 > {: .language-bash}
 >
@@ -711,20 +700,66 @@ Oftentimes one needs to copy or move several files at once. This can be done by 
 > to get the job done:
 >
 > ~~~
-> $ cp *dataset* /backup/datasets
-> $ cp ____calibration____ /backup/calibration
-> $ cp 2015-____-____ ~/send_to_bob/all_november_files/
-> $ cp ____ ~/send_to_bob/all_datasets_created_on_a_23rd/
+> $ cp *dataset* backup/datasets
+> $ cp ____calibration____ backup/calibration
+> $ cp 2015-____-____ send_to_bob/all_november_files/
+> $ cp ____ send_to_bob/all_datasets_created_on_a_23rd/
 > ~~~
 > {: .language-bash}
 >
 > Help Sam by filling in the blanks.
 >
+> The resulting directory structure should look like this
+> ```
+> .
+> ├── 2015-10-23-calibration.txt
+> ├── 2015-10-23-dataset1.txt
+> ├── 2015-10-23-dataset2.txt
+> ├── 2015-10-23-dataset_overview.txt
+> ├── 2015-10-26-calibration.txt
+> ├── 2015-10-26-dataset1.txt
+> ├── 2015-10-26-dataset2.txt
+> ├── 2015-10-26-dataset_overview.txt
+> ├── 2015-11-23-calibration.txt
+> ├── 2015-11-23-dataset1.txt
+> ├── 2015-11-23-dataset2.txt
+> ├── 2015-11-23-dataset_overview.txt
+> ├── backup
+> │   ├── calibration
+> │   │   ├── 2015-10-23-calibration.txt
+> │   │   ├── 2015-10-26-calibration.txt
+> │   │   └── 2015-11-23-calibration.txt
+> │   └── datasets
+> │       ├── 2015-10-23-dataset1.txt
+> │       ├── 2015-10-23-dataset2.txt
+> │       ├── 2015-10-23-dataset_overview.txt
+> │       ├── 2015-10-26-dataset1.txt
+> │       ├── 2015-10-26-dataset2.txt
+> │       ├── 2015-10-26-dataset_overview.txt
+> │       ├── 2015-11-23-dataset1.txt
+> │       ├── 2015-11-23-dataset2.txt
+> │       └── 2015-11-23-dataset_overview.txt
+> └── send_to_bob
+>     ├── all_datasets_created_on_a_23rd
+>     │   ├── 2015-10-23-dataset1.txt
+>     │   ├── 2015-10-23-dataset2.txt
+>     │   ├── 2015-10-23-dataset_overview.txt
+>     │   ├── 2015-11-23-dataset1.txt
+>     │   ├── 2015-11-23-dataset2.txt
+>     │   └── 2015-11-23-dataset_overview.txt
+>     └── all_november_files
+>         ├── 2015-11-23-calibration.txt
+>         ├── 2015-11-23-dataset1.txt
+>         ├── 2015-11-23-dataset2.txt
+>         └── 2015-11-23-dataset_overview.txt
+> ```
+> {: .language-bash}
+>
 > > ## Solution
 > > ```
-> > $ cp *calibration.txt /backup/calibration
-> > $ cp 2015-11-* ~/send_to_bob/all_november_files/
-> > $ cp *-23-dataset* ~send_to_bob/all_datasets_created_on_a_23rd/
+> > $ cp *calibration.txt backup/calibration
+> > $ cp 2015-11-* send_to_bob/all_november_files/
+> > $ cp *-23-dataset* send_to_bob/all_datasets_created_on_a_23rd/
 > > ```
 > > {: .language-bash}
 > {: .solution}
@@ -772,55 +807,66 @@ Oftentimes one needs to copy or move several files at once. This can be done by 
 > > {: .language-bash}
 > > Jamie needs to move her files `fructose.dat` and `sucrose.dat` to the `analyzed` directory.
 > > The shell will expand *.dat to match all .dat files in the current directory.
-> > The `mv` command then moves the list of .dat files to the "analyzed" directory.
+> > The `mv` command then moves the list of .dat files to the 'analyzed' directory.
 > {: .solution}
 {: .challenge}
 
-> ## Copy a folder structure but not the files
+> ## Reproduce a folder structure
 >
-> You're starting a new experiment, and would like to duplicate the file
-> structure from your previous experiment without the data files so you can
-> add new data.
+> You're starting a new experiment, and would like to duplicate the directory
+> structure from your previous experiment so you can add new data.
 >
-> Assume that the file structure is in a folder called '2016-05-18-data',
+> Assume that the previous experiment is in a folder called '2016-05-18',
 > which contains a `data` folder that in turn contains folders named `raw` and
-> `processed` that contain data files.  The goal is to copy the file structure
-> of the `2016-05-18-data` folder into a folder called `2016-05-20-data` and
-> remove the data files from the directory you just created.
+> `processed` that contain data files.  The goal is to copy the folder structure
+> of the `2016-05-18-data` folder into a folder called `2016-05-20`
+> so that your final directory structure looks like this:
+>
+>	2016-05-20/
+>	└── data
+>	    ├── processed
+>	    └── raw
 >
 > Which of the following set of commands would achieve this objective?
 > What would the other commands do?
 >
 > ~~~
-> $ cp -r 2016-05-18-data/ 2016-05-20-data/
-> $ rm 2016-05-20-data/raw/*
-> $ rm 2016-05-20-data/processed/*
+> $ mkdir 2016-05-20
+> $ mkdir 2016-05-20/data
+> $ mkdir 2016-05-20/data/processed
+> $ mkdir 2016-05-20/data/raw
 > ~~~
 > {: .language-bash}
 > ~~~
-> $ rm 2016-05-20-data/raw/*
-> $ rm 2016-05-20-data/processed/*
-> $ cp -r 2016-05-18-data/ 2016-5-20-data/
+> $ mkdir 2016-05-20
+> $ cd 2016-05-20
+> $ mkdir data
+> $ cd data
+> $ mkdir raw processed
 > ~~~
 > {: .language-bash}
 > ~~~
-> $ cp -r 2016-05-18-data/ 2016-05-20-data/
-> $ rm -r -i 2016-05-20-data/
+> $ mkdir 2016-05-20/data/raw
+> $ mkdir 2016-05-20/data/processed
+> ~~~
+> {: .language-bash}
+> ~~~
+> $ mkdir 2016-05-20
+> $ cd 2016-05-20
+> $ mkdir data
+> $ mkdir raw processed
 > ~~~
 > {: .language-bash}
 > >
 > > ## Solution
-> > The first set of commands achieves this objective.
-> > First we have a recursive copy of a data folder.
-> > Then two `rm` commands which remove all files in the specified directories.
-> > The shell expands the '*' wild card to match all files and subdirectories.
+> > The first two sets of commands achieve this objective.
+> > The first set uses relative paths to create the top level directory before
+> > the subdirectories.
 > >
-> > The second set of commands have the wrong order: 
-> > attempting to delete files which haven't yet been copied,
-> > followed by the recursive copy command which would copy them.
+> > The third set of commands will give an error because `mkdir` won't create a subdirectory
+> > of a non-existant directory: the intermediate level folders must be created first.
 > >
-> > The third set of commands would achieve the objective, but in a time-consuming way:
-> > the first command copies the directory recursively, but the second command deletes
-> > interactively, prompting for confirmation for each file and directory.
+> > The final set of commands generates the 'raw' and 'processed' directories at the same level
+> > as the 'data' directory.
 > {: .solution}
 {: .challenge}

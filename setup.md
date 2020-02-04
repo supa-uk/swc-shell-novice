@@ -32,15 +32,23 @@ That last step will make sure you start with your home folder as your working di
 > or [(KDE) Konsole](https://konsole.kde.org/)
 > or [xterm](https://en.wikipedia.org/wiki/Xterm),
 > which can be found via the applications menu or the search bar.
-> If your machine is set up to use something other than bash, you can run it by opening a terminal and typing `bash`.
+> If your machine is set up to use something other than Bash, you can run it by opening a terminal and typing `bash`.
 >
-> ### MacOS
-> For a Mac computer, the default Unix Shell is Bash,
-> and it is available via the `Terminal` application.
+> ### macOS
+> For a Mac computer running macOS Mojave or earlier releases, the default Unix Shell is Bash.
+> For a Mac computer running macOS Catalina or later releases, the default Unix Shell is Zsh.
+> Your default shell is available via the Terminal program within your Utilities folder.
 >
 > To open Terminal, try one or both of the following:
-> * Go to your Applications. Within Applications, open the Utilities folder. Locate Terminal in the Utilities folder and open it.
+> * In Finder, select the Go menu, then select Utilities. Locate Terminal in the Utilities folder and open it.
 > * Use the Mac ‘Spotlight’ computer search function. Search for: `Terminal` and press <kbd>Return</kbd>.
+>
+> To check if your machine is set up to use something other than Bash, type `echo $SHELL` in your terminal window.
+>
+> If your machine is set up to use something other than Bash, you can run it by opening a terminal and typing `bash`.
+>
+> #### Reference 
+> [How to Use Terminal on a Mac](http://www.macworld.co.uk/feature/mac-software/how-use-terminal-on-mac-3608274/)
 >
 > ### Windows
 > Computers with Windows operating systems do not automatically have a Unix Shell program installed.
@@ -59,9 +67,10 @@ That last step will make sure you start with your home folder as your working di
 > using the Windows 10 command-line tool, or installing and using a Unix/Linux emulator.
 >
 > #### Reference
-> * [Git for Windows](https://git-for-windows.github.io/)
-> * [How to Install Bash shell command-line tool on Windows 10](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10)
-> * [Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)
-> * [Using the Windows 10 Bash Shell](https://www.howtogeek.com/265900/everything-you-can-do-with-windows-10s-new-bash-shell/)
+> * [Git for Windows](https://git-for-windows.github.io/) - *Recommended*
+>
+> ### For advanced users, you may choose one of the following alternatives: 
+> * [Install the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 > * [Using a Unix/Linux emulator (Cygwin) or Secure Shell (SSH) client (Putty)](http://faculty.smu.edu/reynolds/unixtut/windows.html)
 {: .callout}
+>   *Please note that commands in the Windows Subsystem for Linux (WSL) or Cygwin may differ slightly from those shown in the lesson or presented in the workshop. 

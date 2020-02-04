@@ -18,66 +18,60 @@ keypoints:
 - "Do not use spaces, quotes, or wildcard characters such as '*' or '?' in filenames, as it complicates variable expansion."
 - "Give files consistent names that are easy to match with wildcard patterns to make it easy to select them for looping."
 - "Use the up-arrow key to scroll up through previous commands to edit and repeat them."
-- "Use `Ctrl-R` to search through the previously entered commands."
+- "Use <kbd>Ctrl</kbd>+<kbd>R</kbd> to search through the previously entered commands."
 - "Use `history` to display recent commands, and `!number` to repeat a command by number."
 ---
 
-**Loops** are key to productivity improvements through automation as they allow us to execute
-commands repeatedly. Similar to wildcards and tab completion, using loops also reduces the
-amount of typing (and typing mistakes).
-Suppose we have several hundred genome data files named `basilisk.dat`, `unicorn.dat`, and so on.
-In this example,
-we'll use the `creatures` directory which only has two example files,
+**Loops** are a programming construct which allow us to repeat a command or set of commands
+for each item in a list.
+As such they are key to productivity improvements through automation.
+Similar to wildcards and tab completion, using loops also reduces the
+amount of typing required (and hence reduces the number of typing mistakes).
+
+Suppose we have several hundred genome data files named `basilisk.dat`, `minotaur.dat`, and
+`unicorn.dat`.
+For this example, we'll use the `creatures` directory which only has three example files,
 but the principles can be applied to many many more files at once.
-We would like to modify these files, but also save a version of the original files, naming the copies
-`original-basilisk.dat` and `original-unicorn.dat`.
-We can't use:
 
-~~~
-$ cp *.dat original-*.dat
-~~~
+The structure of these files is the same: the common name, classification, and updated date are
+presented on the first three lines, with DNA sequences on the following lines.
+Let's look at the files:
+
+```
+head -n 5 basilisk.dat minotaur.dat unicorn.dat
+```
 {: .language-bash}
 
-because that would expand to:
+We would like to print out the classification for each species, which is given on the second
+line of each file.
+For each file, we would need to execute the command `head -n 2` and pipe this to `tail -n 1`.
+We’ll use a loop to solve this problem, but first let’s look at the general form of a loop:
 
-~~~
-$ cp basilisk.dat unicorn.dat original-*.dat
-~~~
+```
+for thing in list_of_things
+do
+    operation_using $thing    # Indentation within the loop is not required, but aids legibility
+done
+```
 {: .language-bash}
 
-This wouldn't back up our files, instead we get an error:
+and we can apply this to our example like this:
 
-~~~
-cp: target `original-*.dat' is not a directory
-~~~
-{: .error}
-
-This problem arises when `cp` receives more than two inputs. When this happens, it
-expects the last input to be a directory where it can copy all the files it was passed.
-Since there is no directory named `original-*.dat` in the `creatures` directory we get an
-error.
-
-Instead, we can use a **loop**
-to do some operation once for each thing in a list.
-Here's a simple example that displays the first three lines of each file in turn:
-
-~~~
-$ for filename in basilisk.dat unicorn.dat
+```
+$ for filename in basilisk.dat minotaur.dat unicorn.dat
 > do
->    head -n 3 $filename	# Indentation within the loop aids legibility
+>    head -n 2 $filename | tail -n 1
 > done
-~~~
+```
 {: .language-bash}
 
-~~~
-COMMON NAME: basilisk
+```
 CLASSIFICATION: basiliscus vulgaris
-UPDATED: 1745-05-02
-COMMON NAME: unicorn
+CLASSIFICATION: bos hominus
 CLASSIFICATION: equus monoceros
-UPDATED: 1738-11-24
-~~~
+```
 {: .output}
+
 
 > ## Follow the Prompt
 >
@@ -87,34 +81,33 @@ UPDATED: 1738-11-24
 > can be used to separate two commands written on a single line.
 {: .callout}
 
-> ## Indentation of code within a for loop
-> Note that it is common practice to indent the line(s) of code within a for loop.
-> The only purpose is to make the code easier to read -- it is not required for the loop to run.
-{: .callout}
-
 When the shell sees the keyword `for`,
 it knows to repeat a command (or group of commands) once for each item in a list.
 Each time the loop runs (called an iteration), an item in the list is assigned in sequence to
-the **variable**, and the commands inside the loop are executed, before moving on to 
+the **variable**, and the commands inside the loop are executed, before moving on to
 the next item in the list.
 Inside the loop,
 we call for the variable's value by putting `$` in front of it.
 The `$` tells the shell interpreter to treat
-the **variable** as a variable name and substitute its value in its place,
-rather than treat it as text or an external command. 
+the variable as a variable name and substitute its value in its place,
+rather than treat it as text or an external command.
 
-In this example, the list is two filenames: `basilisk.dat` and `unicorn.dat`.
+In this example, the list is three filenames: `basilisk.dat`, `minotaur.dat`, and `unicorn.dat`.
 Each time the loop iterates, it will assign a file name to the variable `filename`
 and run the `head` command.
 The first time through the loop,
-`$filename` is `basilisk.dat`. 
-The interpreter runs the command `head` on `basilisk.dat`, 
-and then prints the 
-first three lines of `basilisk.dat`.
-For the second iteration, `$filename` becomes 
-`unicorn.dat`. This time, the shell runs `head` on `unicorn.dat`
-and prints the first three lines of `unicorn.dat`. 
-Since the list was only two items, the shell exits the `for` loop.
+`$filename` is `basilisk.dat`.
+The interpreter runs the command `head` on `basilisk.dat`
+and pipes the first two lines to the `tail` command,
+which then prints the second line of `basilisk.dat`.
+For the second iteration, `$filename` becomes
+`minotaur.dat`. This time, the shell runs `head` on `minotaur.dat`
+and pipes the first two lines to the `tail` command,
+which then prints the second line of `minotaur.dat`.
+For the third iteration, `$filename` becomes
+`unicorn.dat`, so the shell runs the `head` command on that file,
+and `tail` on the output of that.
+Since the list was only three items, the shell exits the `for` loop.
 
 > ## Same Symbols, Different Meanings
 >
@@ -141,9 +134,9 @@ The shell itself doesn't care what the variable is called;
 if we wrote this loop as:
 
 ~~~
-$ for x in basilisk.dat unicorn.dat
+$ for x in basilisk.dat minotaur.dat unicorn.dat
 > do
->    head -n 3 $x
+>    head -n 2 $x | tail -n 1
 > done
 ~~~
 {: .language-bash}
@@ -151,9 +144,9 @@ $ for x in basilisk.dat unicorn.dat
 or:
 
 ~~~
-$ for temperature in basilisk.dat unicorn.dat
+$ for temperature in basilisk.dat minotaur.dat unicorn.dat
 > do
->    head -n 3 $temperature
+>    head -n 2 $temperature | tail -n 1
 > done
 ~~~
 {: .language-bash}
@@ -244,7 +237,7 @@ increase the odds that the program won't do what its readers think it does.
 > ~~~
 > $ for filename in c*
 > > do
-> >    ls $filename 
+> >    ls $filename
 > > done
 > ~~~
 > {: .language-bash}
@@ -255,7 +248,7 @@ increase the odds that the program won't do what its readers think it does.
 > 4.  Only `cubane.pdb` is listed.
 >
 > > ## Solution
-> > 4 is the correct answer. `*` matches zero or more characters, so any file name starting with 
+> > 4 is the correct answer. `*` matches zero or more characters, so any file name starting with
 > > the letter c, followed by zero or more other characters will be matched.
 > {: .solution}
 >
@@ -264,7 +257,7 @@ increase the odds that the program won't do what its readers think it does.
 > ~~~
 > $ for filename in *c*
 > > do
-> >    ls $filename 
+> >    ls $filename
 > > done
 > ~~~
 > {: .language-bash}
@@ -351,7 +344,7 @@ $ for filename in *.dat
 The shell starts by expanding `*.dat` to create the list of files it will process.
 The **loop body**
 then executes two commands for each of those files.
-The first, `echo`, just prints its command-line arguments to standard output.
+The first command, `echo`, prints its command-line arguments to standard output.
 For example:
 
 ~~~
@@ -368,7 +361,7 @@ hello there
 
 In this case,
 since the shell expands `$filename` to be the name of a file,
-`echo $filename` just prints the name of the file.
+`echo $filename` prints the name of the file.
 Note that we can't write this as:
 
 ~~~
@@ -400,9 +393,9 @@ from whatever file is being processed
 > purple unicorn.dat
 > ~~~
 > {: .source}
-> 
+>
 > To loop over these files, we would need to add double quotes like so:
-> 
+>
 > ~~~
 > $ for filename in "red dragon.dat" "purple unicorn.dat"
 > > do
@@ -411,7 +404,7 @@ from whatever file is being processed
 > ~~~
 > {: .language-bash}
 >
-> It is simpler just to avoid using spaces (or other special characters) in filenames.
+> It is simpler to avoid using spaces (or other special characters) in filenames.
 >
 > The files above don't exist, so if we run the above code, the `head` command will be unable
 > to find them, however the error message returned will show the name of the files it is
@@ -434,9 +427,35 @@ from whatever file is being processed
 > {: . output}
 {: .callout}
 
-Going back to our original file copying problem,
-we can solve it using this loop:
+We would like to modify each of the files in `data-shell/creatures`, but also save a version
+of the original files, naming the copies `original-basilisk.dat` and `original-unicorn.dat`.
+We can't use:
 
+~~~
+$ cp *.dat original-*.dat
+~~~
+{: .language-bash}
+
+because that would expand to:
+
+~~~
+$ cp basilisk.dat minotaur.dat unicorn.dat original-*.dat
+~~~
+{: .language-bash}
+
+This wouldn't back up our files, instead we get an error:
+
+~~~
+cp: target `original-*.dat' is not a directory
+~~~
+{: .error}
+
+This problem arises when `cp` receives more than two inputs. When this happens, it
+expects the last input to be a directory where it can copy all the files it was passed.
+Since there is no directory named `original-*.dat` in the `creatures` directory we get an
+error.
+
+Instead, we can use a loop:
 ~~~
 $ for filename in *.dat
 > do
@@ -458,14 +477,25 @@ cp basilisk.dat original-basilisk.dat
 The second time, the command is:
 
 ~~~
+cp minotaur.dat original-minotaur.dat
+~~~
+{: .language-bash}
+
+The third and last time, the command is:
+
+~~~
 cp unicorn.dat original-unicorn.dat
 ~~~
 {: .language-bash}
 
-Since the `cp` command does not normally produce any output, it's hard to check 
-that the loop is doing the correct thing. By prefixing the command with `echo` 
-it is possible to see each command as it _would_ be executed. The following diagram 
-shows what happens when the modified script is executed, and demonstrates how the 
+Since the `cp` command does not normally produce any output, it's hard to check
+that the loop is doing the correct thing.
+However, we learned earlier how to print strings using `echo`, and we can modify the loop
+to use `echo` to print our commands without actually executing them.
+As such we can check what commands *would be* run in the unmodified loop.
+
+The following diagram
+shows what happens when the modified loop is executed, and demonstrates how the
 judicious use of `echo` is a good debugging technique.
 
 ![For Loop in Action](../fig/shell_script_for_loop_flow_chart.svg)
@@ -504,7 +534,7 @@ NENE02043B.txt
 
 Her next step is to decide
 what to call the files that the `goostats` analysis program will create.
-Prefixing each input file's name with "stats" seems simple,
+Prefixing each input file's name with 'stats' seems simple,
 so she modifies her loop to do that:
 
 ~~~
@@ -532,7 +562,7 @@ Typing in commands over and over again is becoming tedious,
 though,
 and Nelle is worried about making mistakes,
 so instead of re-entering her loop,
-she presses the up arrow.
+she presses <kbd>↑</kbd>.
 In response,
 the shell redisplays the whole loop on one line
 (using semi-colons to separate the pieces):
@@ -555,8 +585,8 @@ the shell runs the modified command.
 However, nothing appears to happen --- there is no output.
 After a moment, Nelle realizes that since her script doesn't print anything to the screen any longer,
 she has no idea whether it is running, much less how quickly.
-She kills the running command by typing `Ctrl-C`,
-uses up-arrow to repeat the command,
+She kills the running command by typing <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+uses <kbd>↑</kbd> to repeat the command,
 and edits it to read:
 
 ~~~
@@ -566,8 +596,8 @@ $ for datafile in NENE*[AB].txt; do echo $datafile; bash goostats $datafile stat
 
 > ## Beginning and End
 >
-> We can move to the beginning of a line in the shell by typing `Ctrl-a`
-> and to the end using `Ctrl-e`.
+> We can move to the beginning of a line in the shell by typing <kbd>Ctrl</kbd>+<kbd>A</kbd>
+> and to the end using <kbd>Ctrl</kbd>+<kbd>E</kbd>.
 {: .callout}
 
 When she runs her program now,
@@ -596,7 +626,7 @@ so she decides to get some coffee and catch up on her reading.
 >
 > Another way to repeat previous work is to use the `history` command to
 > get a list of the last few hundred commands that have been executed, and
-> then to use `!123` (where "123" is replaced by the command number) to
+> then to use `!123` (where '123' is replaced by the command number) to
 > repeat one of those commands. For example, if Nelle types this:
 >
 > ~~~
@@ -620,16 +650,18 @@ so she decides to get some coffee and catch up on her reading.
 >
 > There are a number of other shortcut commands for getting at the history.
 >
-> - `Ctrl-R` enters a history search mode "reverse-i-search" and finds the 
+> - <kbd>Ctrl</kbd>+<kbd>R</kbd> enters a history search mode 'reverse-i-search' and finds the
 > most recent command in your history that matches the text you enter next.
-> Press `Ctrl-R` one or more additional times to search for earlier matches.
-> - `!!` retrieves the immediately preceding command 
-> (you may or may not find this more convenient than using the up-arrow)
+> Press <kbd>Ctrl</kbd>+<kbd>R</kbd> one or more additional times to search for earlier matches.
+> You can then use the left and right arrow keys to choose that line and edit
+> it then hit <kbd>Return</kbd> to run the command.
+> - `!!` retrieves the immediately preceding command
+> (you may or may not find this more convenient than using <kbd>↑</kbd>)
 > - `!$` retrieves the last word of the last command.
 > That's useful more often than you might expect: after
 > `bash goostats NENE01729B.txt stats-NENE01729B.txt`, you can type
 > `less !$` to look at the file `stats-NENE01729B.txt`, which is
-> quicker than doing up-arrow and editing the command-line.
+> quicker than doing <kbd>↑</kbd> and editing the command-line.
 {: .callout}
 
 > ## Doing a Dry Run
@@ -637,7 +669,7 @@ so she decides to get some coffee and catch up on her reading.
 > A loop is a way to do many things at once --- or to make many mistakes at
 > once if it does the wrong thing. One way to check what a loop *would* do
 > is to `echo` the commands it would run instead of actually running them.
-> 
+>
 > Suppose we want to preview the commands the following loop will execute
 > without actually running those commands:
 >
@@ -678,15 +710,15 @@ so she decides to get some coffee and catch up on her reading.
 > > The first version redirects the output from the command `echo analyze $file` to
 > > a file, `analyzed-$file`. A series of files is generated: `analyzed-cubane.pdb`,
 > > `analyzed-ethane.pdb` etc.
-> > 
-> > Try both versions for yourself to see the output! Be sure to open the 
+> >
+> > Try both versions for yourself to see the output! Be sure to open the
 > > `analyzed-*.pdb` files to view their contents.
 > {: .solution}
 {: .challenge}
 
 > ## Nested Loops
 >
-> Suppose we want to set up up a directory structure to organize
+> Suppose we want to set up a directory structure to organize
 > some experiments measuring reaction rate constants with different compounds
 > *and* different temperatures.  What would be the
 > result of the following code:

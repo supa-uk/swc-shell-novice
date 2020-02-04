@@ -35,7 +35,7 @@ $ nano middle.sh
 ~~~
 {: .language-bash}
 
-The command `nano middle.sh` opens the file `middle.sh` within the text editor "nano"
+The command `nano middle.sh` opens the file `middle.sh` within the text editor 'nano'
 (which runs within the shell).
 If the file does not exist, it will be created.
 We can use the text editor to directly edit the file -- we'll simply insert the following line:
@@ -90,7 +90,8 @@ our script's output is exactly what we would get if we ran that pipeline directl
 
 What if we want to select lines from an arbitrary file?
 We could edit `middle.sh` each time to change the filename,
-but that would probably take longer than just retyping the command.
+but that would probably take longer than typing the command out again
+in the shell and executing it with a new file name.
 Instead, let's edit `middle.sh` and make it more versatile:
 
 ~~~
@@ -106,7 +107,7 @@ head -n 15 "$1" | tail -n 5
 {: .output}
 
 Inside a shell script,
-`$1` means "the first filename (or other argument) on the command line".
+`$1` means 'the first filename (or other argument) on the command line'.
 We can now run our script like this:
 
 ~~~
@@ -226,7 +227,7 @@ $ wc -l *.pdb | sort -n
 {: .language-bash}
 
 because `wc -l` lists the number of lines in the files
-(recall that `wc` stands for 'word count', adding the `-l` flag means 'count lines' instead)
+(recall that `wc` stands for 'word count', adding the `-l` option means 'count lines' instead)
 and `sort -n` sorts things numerically.
 We could put this in a file,
 but then it would only ever sort a list of `.pdb` files in the current directory.
@@ -236,10 +237,11 @@ We can't use `$1`, `$2`, and so on
 because we don't know how many files there are.
 Instead, we use the special variable `$@`,
 which means,
-"All of the command-line arguments to the shell script."
+'All of the command-line arguments to the shell script'.
 We also should put `$@` inside double-quotes
 to handle the case of arguments containing spaces
-(`"$@"` is equivalent to `"$1"` `"$2"` ...)
+(`"$@"` is special syntax and is equivalent to `"$1"` `"$2"` ...).
+
 Here's an example:
 
 ~~~
@@ -248,7 +250,7 @@ $ nano sorted.sh
 {: .language-bash}
 
 ~~~
-# Sort filenames by their length.
+# Sort files by their length.
 # Usage: bash sorted.sh one_or_more_filenames
 wc -l "$@" | sort -n
 ~~~
@@ -267,7 +269,9 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 21 pentane.pdb
 30 octane.pdb
 163 ../creatures/basilisk.dat
+163 ../creatures/minotaur.dat
 163 ../creatures/unicorn.dat
+596 total
 ~~~
 {: .output}
 
@@ -288,11 +292,11 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 > {: .source}
 >
 > An example of this type of file is given in `data-shell/data/animal-counts/animals.txt`.
-> 
+>
+> We can use the command `cut -d , -f 2 animals.txt | sort | uniq` to produce the unique species in `animals.txt`. In order to avoid having to type out this series of commands every time, a scientist may choose to write a shell script instead.
+>
 > Write a shell script called `species.sh` that takes any number of
-> filenames as command-line arguments, and uses `cut`, `sort`, and
-> `uniq` to print a list of the unique species appearing in each of
-> those files separately.
+> filenames as command-line arguments, and uses a variation of the above command to print a list of the unique species appearing in each of those files separately.
 >
 > > ## Solution
 > >
@@ -301,7 +305,7 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 > > # This script accepts any number of file names as command line arguments
 > >
 > > # Loop over all files
-> > for file in $@ 
+> > for file in $@
 > > do
 > > 	echo "Unique species in $file:"
 > > 	# Extract species names
@@ -311,30 +315,6 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 > > {: .source}
 > {: .solution}
 {: .challenge}
-
-> ## Why Isn't It Doing Anything?
->
-> What happens if a script is supposed to process a bunch of files, but we
-> don't give it any filenames? For example, what if we type:
->
-> ~~~
-> $ bash sorted.sh
-> ~~~
-> {: .language-bash}
->
-> but don't say `*.dat` (or anything else)? In this case, `$@` expands to
-> nothing at all, so the pipeline inside the script is effectively:
->
-> ~~~
-> $ wc -l | sort -n
-> ~~~
-> {: .language-bash}
->
-> Since it doesn't have any filenames, `wc` assumes it is supposed to
-> process standard input, so it just sits there and waits for us to give
-> it some data interactively. From the outside, though, all we see is it
-> sitting there: the script doesn't appear to do anything.
-{: .callout}
 
 
 Suppose we have just run a series of commands that did something useful --- for example,
@@ -488,7 +468,7 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > 4. An error because of the quotes around `*.pdb`
 >
 > > ## Solution
-> > The correct answer is 2. 
+> > The correct answer is 2.
 > >
 > > The special variables $1, $2 and $3 represent the command line arguments given to the
 > > script, such that the commands run are:
@@ -522,12 +502,12 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > > ## Solution
 > >
 > > ```
-> > # Shell script which takes two arguments: 
+> > # Shell script which takes two arguments:
 > > #    1. a directory name
 > > #    2. a file extension
 > > # and prints the name of the file in that directory
 > > # with the most lines which matches the file extension.
-> > 
+> >
 > > wc -l $1/*.$2 | sort -n | tail -n 2 | head -n 1
 > > ```
 > > {: .source}
@@ -539,8 +519,8 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > For this question, consider the `data-shell/molecules` directory once again.
 > This contains a number of `.pdb` files in addition to any other files you
 > may have created.
-> Explain what a script called `example.sh` would do when run as
-> `bash example.sh *.pdb` if it contained the following lines:
+> Explain what each of the following three scripts would do when run as
+> `bash script1.sh *.pdb`, `bash script2.sh *.pdb`, and `bash script3.sh *.pdb` respectively.
 >
 > ~~~
 > # Script 1
@@ -564,13 +544,18 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > {: .language-bash}
 >
 > > ## Solutions
-> > Script 1 would print out a list of all files containing a dot in their name.
+> > In each case, the shell expands the wildcard in `*.pdb` before passing the resulting
+> > list of file names as arguments to the script.
 > >
-> > Script 2 would print the contents of the first 3 files matching the file extension.
-> > The shell expands the wildcard before passing the arguments to the `example.sh` script.
-> > 
+> > Script 1 would print out a list of all files containing a dot in their name.
+> > The arguments passed to the script are not actually used anywhere in the script.
+> >
+> > Script 2 would print the contents of the first 3 files with a `.pdb` file extension.
+> > `$1`, `$2`, and `$3` refer to the first, second, and third argument respectively.
+> >
 > > Script 3 would print all the arguments to the script (i.e. all the `.pdb` files),
 > > followed by `.pdb`.
+> > `$@` refers to *all* the arguments given to a shell script.
 > > ```
 > > cubane.pdb ethane.pdb methane.pdb octane.pdb pentane.pdb propane.pdb.pdb
 > > ```
@@ -612,7 +597,7 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > Which line is responsible for the error?
 >
 > > ## Solution
-> > The `-x` flag causes `bash` to run in debug mode.
+> > The `-x` option causes `bash` to run in debug mode.
 > > This prints out each command as it is run, which will help you to locate errors.
 > > In this example, we can see that `echo` isn't printing anything. We have made a typo
 > > in the loop variable name, and the variable `datfile` doesn't exist, hence returning
