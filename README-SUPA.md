@@ -6,6 +6,9 @@ Building
 
 You need to install [Jekyll](https://jekyllrb.com).  Then `make site`.
 
+After the repository is subsequently pushed, it appears at
+<https://supa-uk.github.io/swc-shell-novice/>
+
 Appearance
 ----------
 
